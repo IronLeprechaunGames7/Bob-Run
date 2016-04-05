@@ -73,3 +73,12 @@ public class Crusher extends FlxSprite{
         isFalling = true;
     }
 	
+	public void rise(){
+		if (y > startHeight){
+			velocity.y = -10;
+		}
+		else{
+			velocity.y = 0;
+		}
+	}
+}
