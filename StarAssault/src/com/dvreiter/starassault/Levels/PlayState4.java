@@ -59,7 +59,10 @@ public class PlayState4 extends FlxState
 	private FlxButton Exitbtn;
 	private FlxButton Settingsbtn;
 	private FlxButton Resumebtn;
+	
+	private FlxSave gameSave;
 
+	boolean isPaused = false;//added
 	@Override
 	public void create()
 	{						
@@ -283,9 +286,30 @@ public class PlayState4 extends FlxState
 	
     @Override
 	public void update(){	
-	
+//		if(FlxG.keys.justPressed("BACK"))
+//		{
+//			if(_player.exists == true)
+//				{
+//				Pausebtn.kill();
+//				_player.exists = false;
+//				pauseblock.exists = true;
+//				Resumebtn.exists = true;
+//				Settingsbtn.exists = true;
+//				Exitbtn.exists = true;			
+//				}
+//			if(_player.exists == false)
+//				{
+//					Pausebtn.exists = true;
+//					_player.exists = true;
+//					Resumebtn.kill();
+//					Settingsbtn.kill();
+//					Exitbtn.kill();
+//					pauseblock.kill();
+//				}		
+	//	}
 		if(Pausebtn.status == Pausebtn.PRESSED){
 			//FlxG.paused = true;
+			
 			Pausebtn.kill();
 			_player.exists = false;
 			pauseblock.exists = true;
@@ -535,6 +559,15 @@ public class PlayState4 extends FlxState
 		@Override
 		public void callback()
 		{
+			//saving stuff
+			gameSave = new FlxSave();
+			gameSave.bind("Test");
+
+			//Save
+
+			gameSave.data.put("Progress", 6);
+			gameSave.flush();
+			
 			FlxG.switchState(new PlayState5());
 		}
 
