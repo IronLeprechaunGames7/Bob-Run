@@ -35,7 +35,7 @@ public class PlayState extends FlxState
 	protected FlxEmitter _littleGibs;
 
 
-	private FlxSave gameSave
+	private FlxSave gameSave;
 	FlxVirtualPad pad;
 	Player player;
 	Enemy enemy1;
