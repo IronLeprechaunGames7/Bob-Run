@@ -17,32 +17,59 @@ public class LevelsState extends FlxState
 	
 	private FlxText Title;
 	private FlxText gameversion;
-	private FlxText author, title1,title2;
+
+	public FlxSave gameSave;
+	
+	private FlxText title1,title2;
 
 	@Override
 	public void create()
 	{			
+	
+		//saving stuff
+		gameSave = new FlxSave();
+		gameSave.bind("Test");
+		
+		//load
+		@SuppressWarnings("unchecked")
+		int progress = gameSave.data.get("Progress", int.class);
+		if(progress == 0)
+		{
+			
+			
+		}else
+		{}		
 		FlxG.playMusic("Pneumatic-Tok.mp3", 1f, true, true);
 	
 		FlxG.setBgColor(0x0d47e1);
 
 		Level1 = new FlxButton(10, 50, "Level1", new IFlxButton(){@Override public void callback(){onLevel1();}});
 		add(Level1);	
-
+		if(progress > 2)
+		{
 		Level2 = new FlxButton(10, Level1.height + Level1.y, "Level2", new IFlxButton(){@Override public void callback(){onLevel2();}});
 		add(Level2);
-
-		Level3 = new FlxButton(10, Level2.height + Level2.y, "Leve3", new IFlxButton(){@Override public void callback(){onLevel3();}});
+		}
+		if(progress > 3)
+		{
+		Level3 = new FlxButton(10, Level2.height + Level2.y, "Level3", new IFlxButton(){@Override public void callback(){onLevel3();}});//Modified
 		add(Level3);
-
+		}
+		if(progress > 4)
+		{
 		Level4 = new FlxButton(10, Level3.height + Level3.y, "Level4", new IFlxButton(){@Override public void callback(){onLevel4();}});
 		add(Level4);
-		
+		}
+		if(progress > 5)
+		{
 		Level5 = new FlxButton(10, Level4.height + Level4.y, "Level5", new IFlxButton(){@Override public void callback(){onLevel5();}});
 		add(Level5);
-		
+		}
+		if(progress > 6)
+		{
 		Level6 = new FlxButton(10, Level5.height + Level5.y, "Level6", new IFlxButton(){@Override public void callback(){onLevel6();}});
 		add(Level6);
+		}
 		
 		//the letters "mo"
 		title1 = new FlxText(FlxG.width + 12,FlxG.height / 20,120,"Level");
