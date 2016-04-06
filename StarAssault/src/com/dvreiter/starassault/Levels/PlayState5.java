@@ -62,6 +62,8 @@ public class PlayState5 extends FlxState
 	private FlxButton Settingsbtn;
 	private FlxButton Resumebtn;
 
+private FlxSave gameSave;
+
 	@Override
 	public void create()
 	{						
@@ -527,6 +529,14 @@ public class PlayState5 extends FlxState
 		@Override
 		public void callback()
 		{
+                        //saving stuff
+			gameSave = new FlxSave();
+			gameSave.bind("Test");
+
+			//Save
+
+			gameSave.data.put("Progress", 7);
+			gameSave.flush();
 			FlxG.switchState(new PlayState6());
 		}
 
