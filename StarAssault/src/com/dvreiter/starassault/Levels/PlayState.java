@@ -33,7 +33,9 @@ public class PlayState extends FlxState
 	public FlxText goal;
 	public FlxTileblock rightBorder, leftBorder;
 	protected FlxEmitter _littleGibs;
-	
+
+
+	private FlxSave gameSave
 	FlxVirtualPad pad;
 	Player player;
 	Enemy enemy1;
@@ -345,6 +347,14 @@ public class PlayState extends FlxState
 		@Override
 		public void callback()
 		{
+                        //saving stuff
+			gameSave = new FlxSave();
+			gameSave.bind("Test");
+
+			//Save
+
+			gameSave.data.put("Progress", 3);
+			gameSave.flush();
 			FlxG.switchState(new PlaystateTwo());
 		}
 
