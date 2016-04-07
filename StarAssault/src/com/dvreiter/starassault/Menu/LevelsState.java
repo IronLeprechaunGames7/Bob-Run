@@ -30,6 +30,13 @@ public class LevelsState extends FlxState
 		gameSave = new FlxSave();
 		gameSave.bind("Test");
 		
+			//Save
+		if(gameSave.data.get("Progress",int.class) == null)
+		{
+		gameSave.data.put("Progress", 2);
+		gameSave.flush();
+		}
+		
 		//load
 		@SuppressWarnings("unchecked")
 		int progress = gameSave.data.get("Progress", int.class);
