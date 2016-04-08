@@ -27,14 +27,13 @@ public class PlayState4 extends FlxState
 
 	private static final int TILE_WIDTH = 16;
 	private static final int TILE_HEIGHT = 16;
-	
-	/*private FlxObject highlightbox;
-	private int action;
-	private static final int ACTION_IDLE = 0;*/
 
-	public FlxButton pause;
+	/*private FlxObject highlightbox;
+	 private int action;
+	 private static final int ACTION_IDLE = 0;*/
+
+
 	public FlxTilemap level;
-	public FlxTileblock pauseblock;
 	public FlxSprite portal;	
 	public FlxSprite hearts;
 	public FlxGroup coins;
@@ -47,19 +46,21 @@ public class PlayState4 extends FlxState
 	public FlxSprite wallSwitch;
 	public FlxText _fps;
 	public FlxSprite elevator, pusher;
-	
+
 	public FlxGroup enemies;
 	Skeleton skeleton;
 	Player _player;
 	FlxVirtualPad pad;
 	protected FlxGroup _bullets;
 	protected FlxEmitter _littleGibs;
-	
+
+	public FlxTileblock pauseblock;
+	public FlxButton pause;
 	private FlxButton Pausebtn;
 	private FlxButton Exitbtn;
 	private FlxButton Settingsbtn;
 	private FlxButton Resumebtn;
-	
+
 	private FlxSave gameSave;
 
 	boolean isPaused = false;//added
@@ -212,30 +213,33 @@ public class PlayState4 extends FlxState
 		pauseblock.setSolid(false);
 		pauseblock.immovable = true;
 		pauseblock.scrollFactor.x = pauseblock.scrollFactor.y = 0;
-		pauseblock.exists = false;
+		pauseblock.visible = false;
 		add(pauseblock);
-		
+
 		Resumebtn = new FlxButton(160, 100, "Resume");//x.190, x.180, x.170, y.110
 		Resumebtn.setSolid(false);//Coords 1: (400, 240),
 		Resumebtn.immovable = true;
 		Resumebtn.scrollFactor.x = Resumebtn.scrollFactor.y = 0;
-		Resumebtn.exists = false;
+		Resumebtn.exists = true;
+		Resumebtn.visible = false;
 		add(Resumebtn);
-		
+
 		Settingsbtn = new FlxButton(160, 130, "Settings", new IFlxButton(){@Override public void callback(){onSettings();}});//x.190, x.180, x.170, y.130
 		Settingsbtn.setSolid(false);//Coords 1: (400, 260), 
 		Settingsbtn.immovable = true;
 		Settingsbtn.scrollFactor.x = Settingsbtn.scrollFactor.y = 0;
-		Settingsbtn.exists = false;
+		Settingsbtn.exists = true;
+		Settingsbtn.visible = false;
 		add(Settingsbtn);
-		
+
 		Exitbtn = new FlxButton(160, 160, "Quit Game", new IFlxButton(){@Override public void callback(){onExit();}});//x.190, x.180, x.170, y.150
 		Exitbtn.setSolid(false);//Coords 1: (400, 280)
 		Exitbtn.immovable = true;
 		Exitbtn.scrollFactor.x = Exitbtn.scrollFactor.y = 0;
-		Exitbtn.exists = false;
+		Exitbtn.exists = true;
+		Exitbtn.visible = false;
 		add(Exitbtn);
-		
+
 		Pausebtn =  new FlxButton(300, 6, "||");
 		Pausebtn.setSolid(false);
 		Pausebtn.immovable = true;
@@ -286,45 +290,26 @@ public class PlayState4 extends FlxState
 	
     @Override
 	public void update(){	
-//		if(FlxG.keys.justPressed("BACK"))
-//		{
-//			if(_player.exists == true)
-//				{
-//				Pausebtn.kill();
-//				_player.exists = false;
-//				pauseblock.exists = true;
-//				Resumebtn.exists = true;
-//				Settingsbtn.exists = true;
-//				Exitbtn.exists = true;			
-//				}
-//			if(_player.exists == false)
-//				{
-//					Pausebtn.exists = true;
-//					_player.exists = true;
-//					Resumebtn.kill();
-//					Settingsbtn.kill();
-//					Exitbtn.kill();
-//					pauseblock.kill();
-//				}		
-	//	}
-		if(Pausebtn.status == Pausebtn.PRESSED){
-			//FlxG.paused = true;
-			
-			Pausebtn.kill();
+
+		if(Pausebtn.status == Pausebtn.PRESSED|| FlxG.keys.justPressed("BACK")){
+			Pausebtn.visible = false;
 			_player.exists = false;
-			pauseblock.exists = true;
-			Resumebtn.exists = true;
-			Settingsbtn.exists = true;
-			Exitbtn.exists = true;	
+			pauseblock.visible= true;
+
+			Resumebtn.visible = true;
+			Settingsbtn.visible = true;
+			Exitbtn.visible = true;	
+			enemies.active = false;
 		}
-		if(Resumebtn.status == Resumebtn.PRESSED){
-			Pausebtn.exists = true;
+		if(Resumebtn.status == Resumebtn.PRESSED || FlxG.keys.justPressed("BACK")){
+			enemies.active=true;
+			Pausebtn.visible = true;
 			_player.exists = true;
-			Resumebtn.kill();
-			Settingsbtn.kill();
-			Exitbtn.kill();
-			pauseblock.kill();
-		}
+			Resumebtn.visible = false;
+			Settingsbtn.visible = false;
+			Exitbtn.visible = false;
+			pauseblock.visible = false;
+			
 
 	/*	if(pad.buttonLeft.status == FlxButton.PRESSED)
 		{
@@ -420,24 +405,7 @@ public class PlayState4 extends FlxState
 		pad = null;
 	}	
 		
-	/*		private void onPause(){ 
-			FlxG.paused = true;
-			Pausebtn.exists = false;
-			_player.exists = false;
-		//	_player.immovable = true;
-		//	_enemy.exists = false;
-			pauseblock.exists = true;
-		//	Resumebtn.x = _player.x;
-		//	Resumebtn.y = _player.y - 20;
-			Resumebtn.exists = true;
-		//	Settingsbtn.x = _player.x;
-		//	Settingsbtn.y = _player.y + 10;
-			Settingsbtn.exists = true;
-		//	Exitbtn.x = _player.x;
-		//	Exitbtn.y = _player.y + 30;
-			Exitbtn.exists = true;		
-			}
-			*/
+
 		private void onExit(){
 			FlxG.switchState(new MenuState());
 		}
@@ -446,16 +414,7 @@ public class PlayState4 extends FlxState
 			FlxG.switchState(new Settings());
 		}
 		
-	/*	private void onResume(){
-			FlxG.paused = false;
-			Pausebtn.exists = true;
-			_player.exists = true;
-			Resumebtn.exists = false;
-			Settingsbtn.exists = false;
-			Exitbtn.exists = false;
-			pauseblock.exists = false;
-		}
-		*/
+
 	IFlxCollision getCoin = new IFlxCollision()
 	{
 		@Override
