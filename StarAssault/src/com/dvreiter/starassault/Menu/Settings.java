@@ -68,7 +68,7 @@ public class Settings extends FlxState
 	}
 	
 	private void onDesign(){
-		FlxG.switchState(new PlayStateFive());
+		FlxG.switchState(new PlayStateLESettings());
 	}
 	
 }
