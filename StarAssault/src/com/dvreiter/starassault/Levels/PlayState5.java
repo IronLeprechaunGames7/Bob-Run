@@ -32,9 +32,7 @@ public class PlayState5 extends FlxState
 	 private int action;
 	 private static final int ACTION_IDLE = 0;*/
 
-	public FlxButton pause;
 	public FlxTilemap level;
-	public FlxTileblock pauseblock;
 	public FlxSprite portal;	
 	public FlxSprite hearts;
 	public FlxGroup coins;
@@ -57,6 +55,8 @@ public class PlayState5 extends FlxState
 	protected FlxEmitter _littleGibs;
 	//public FlxGroup _tbullets
 	
+	public FlxTileblock pauseblock;
+	public FlxButton pause;
 	private FlxButton Pausebtn;
 	private FlxButton Exitbtn;
 	private FlxButton Settingsbtn;
