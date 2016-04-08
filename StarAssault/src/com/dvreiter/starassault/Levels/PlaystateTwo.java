@@ -36,6 +36,13 @@ public class PlaystateTwo extends FlxState
 	Player player;
 	Enemy enemy1;
 	FlxGroup _bullets;
+	
+	public FlxTileblock pauseblock;
+	public FlxButton pause;
+	private FlxButton Pausebtn;
+	private FlxButton Exitbtn;
+	private FlxButton Settingsbtn;
+	private FlxButton Resumebtn;
 
 	@Override
 	public void create()
@@ -145,6 +152,25 @@ public class PlaystateTwo extends FlxState
     @Override
 	public void update()
 	{		
+			if(Pausebtn.status == Pausebtn.PRESSED|| FlxG.keys.justPressed("BACK")){
+			Pausebtn.visible = false;
+			_player.exists = false;
+			pauseblock.visible= true;
+
+			Resumebtn.visible = true;
+			Settingsbtn.visible = true;
+			Exitbtn.visible = true;	
+			enemies.active = false;
+		}
+		if(Resumebtn.status == Resumebtn.PRESSED || FlxG.keys.justPressed("BACK")){
+			enemies.active=true;
+			Pausebtn.visible = true;
+			_player.exists = true;
+			Resumebtn.visible = false;
+			Settingsbtn.visible = false;
+			Exitbtn.visible = false;
+			pauseblock.visible = false;
+		}
 		super.update();
 		FlxG.overlap(coins,player,getCoin);	
 		FlxG.overlap(spikes,player,doSpikeDamage);
