@@ -36,6 +36,13 @@ public class PlaystateThree extends FlxState
 	public FlxTileblock rightBorder, leftBorder;
 	protected FlxEmitter _littleGibs;
 	
+	public FlxTileblock pauseblock;
+	public FlxButton pause;
+	private FlxButton Pausebtn;
+	private FlxButton Exitbtn;
+	private FlxButton Settingsbtn;
+	private FlxButton Resumebtn;
+	
 	private FlxSave gameSave;
 	FlxGroup _bullets;
 	
@@ -142,6 +149,47 @@ public class PlaystateThree extends FlxState
 		score = new FlxText(200,5,100, "SCORE: ");
 		score.setShadow(0xff000000);
 		score.setText("SCORE: "+(coins.countDead()*100));
+		
+		pauseblock = new FlxTileblock(10, 10, 340, 180);//780, 400
+		pauseblock.makeGraphic(340, 180, 0xff000000);// 390, 230
+		pauseblock.setAlpha(0.5f);
+		pauseblock.setSolid(false);
+		pauseblock.immovable = true;
+		pauseblock.scrollFactor.x = pauseblock.scrollFactor.y = 0;
+		pauseblock.visible = false;
+		add(pauseblock);
+
+		Resumebtn = new FlxButton(160, 100, "Resume");//x.190, x.180, x.170, y.110
+		Resumebtn.setSolid(false);//Coords 1: (400, 240),
+		Resumebtn.immovable = true;
+		Resumebtn.scrollFactor.x = Resumebtn.scrollFactor.y = 0;
+		Resumebtn.exists = true;
+		Resumebtn.visible = false;
+		add(Resumebtn);
+
+		Settingsbtn = new FlxButton(160, 130, "Settings", new IFlxButton(){@Override public void callback(){onSettings();}});//x.190, x.180, x.170, y.130
+		Settingsbtn.setSolid(false);//Coords 1: (400, 260), 
+		Settingsbtn.immovable = true;
+		Settingsbtn.scrollFactor.x = Settingsbtn.scrollFactor.y = 0;
+		Settingsbtn.exists = true;
+		Settingsbtn.visible = false;
+		add(Settingsbtn);
+
+		Exitbtn = new FlxButton(160, 160, "Quit Game", new IFlxButton(){@Override public void callback(){onExit();}});//x.190, x.180, x.170, y.150
+		Exitbtn.setSolid(false);//Coords 1: (400, 280)
+		Exitbtn.immovable = true;
+		Exitbtn.scrollFactor.x = Exitbtn.scrollFactor.y = 0;
+		Exitbtn.exists = true;
+		Exitbtn.visible = false;
+		add(Exitbtn);
+
+		Pausebtn =  new FlxButton(300, 6, "||");
+		Pausebtn.setSolid(false);
+		Pausebtn.immovable = true;
+		Pausebtn.exists = true;
+		Pausebtn.scrollFactor.x = Pausebtn.scrollFactor.y = 0;
+		add(Pausebtn);	
+
 		add(score);					
 		add(_bullets);
 		add(player);			
@@ -172,6 +220,25 @@ public class PlaystateThree extends FlxState
     @Override
 	public void update()
 	{
+			if(Pausebtn.status == Pausebtn.PRESSED|| FlxG.keys.justPressed("BACK")){
+			Pausebtn.visible = false;
+			_player.exists = false;
+			pauseblock.visible= true;
+
+			Resumebtn.visible = true;
+			Settingsbtn.visible = true;
+			Exitbtn.visible = true;	
+			enemies.active = false;
+		}
+		if(Resumebtn.status == Resumebtn.PRESSED || FlxG.keys.justPressed("BACK")){
+			enemies.active=true;
+			Pausebtn.visible = true;
+			_player.exists = true;
+			Resumebtn.visible = false;
+			Settingsbtn.visible = false;
+			Exitbtn.visible = false;
+			pauseblock.visible = false;
+		}
 		super.update();
 		FlxG.overlap(coins,player,getCoin);	
 		FlxG.overlap(key,player,openlock);
