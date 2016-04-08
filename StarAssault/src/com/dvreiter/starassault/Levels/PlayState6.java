@@ -506,7 +506,7 @@ public class PlayState6 extends FlxState
 		public void callback(FlxObject Portal, FlxObject Player)
 		{
 			_player.exists = false;
-			FlxG.switchState(new PlayStateFive());
+			FlxG.switchState(new PlayStateLE());
 		}
 	};	
 
