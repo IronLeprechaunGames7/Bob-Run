@@ -56,7 +56,7 @@ public class PlayState6 extends FlxState
 	private FlxButton Pausebtn;
 	private FlxButton Exitbtn;
 	private FlxButton Settingsbtn;
-	private FlxButton Resumebtn
+	private FlxButton Resumebtn;
 
 	@Override
 	public void create()
