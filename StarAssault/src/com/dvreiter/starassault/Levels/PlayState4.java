@@ -374,7 +374,7 @@ public class PlayState4 extends FlxState
 		FlxG.collide(_bullets, spikes);
 		FlxG.collide(spikes, _bullets);
 		FlxG.collide(enemies,enemies);
-		
+		}
 	}
 	
 	@Override
