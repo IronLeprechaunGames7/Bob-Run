@@ -1,3 +1,20 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @IronLeprechaun
+ Unwatch 3
+  Star 0
+ Fork 0 IronLeprechaunGames7/Bob-Run
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy path
+Bob-Run/StarAssault/src/com/dvreiter/starassault/Levels/PlayState4.java
+de17089  on Apr 8
+@IronLeprechaun IronLeprechaun fix
+1 contributor
+RawBlameHistory     541 lines (470 sloc)  16.6 KB
 package com.dvreiter.starassault.Levels;	
 
 import org.flixel.FlxButton;
@@ -337,7 +354,6 @@ public class PlayState4 extends FlxState
 		} 		
 		if(pad.buttonX.status == FlxButton.PRESSED && pad.buttonLeft.status == FlxButton.PRESSED && pad.buttonRight.status == FlxButton.PRESSED){
 			_player.maxVelocity.x = 110;
-
 			//Rotation blah blah blah: 
 			/*player.angle = 360;
 			 player.angularVelocity = 520;
@@ -526,6 +542,7 @@ public class PlayState4 extends FlxState
 
 			gameSave.data.put("Progress", 6);
 			gameSave.flush();
+			dick
 			
 			FlxG.switchState(new PlayState5());
 		}
@@ -538,3 +555,5 @@ public class PlayState4 extends FlxState
 		obj.y = (obj.y + obj.height / 2) % 480 - obj.height / 2;
 	}*/
 }
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
