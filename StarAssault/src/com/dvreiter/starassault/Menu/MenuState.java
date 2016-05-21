@@ -7,7 +7,7 @@ import org.flixel.event.*;
 public class MenuState extends FlxState
 {		
 	private FlxButton PlayButton;
-    private FlxButton HelpButton;
+    	private FlxButton HelpButton,HelpButton2;
 	private FlxButton SettingsButton;
 	private FlxButton musicauthorbutton;
 	private FlxText Title;
